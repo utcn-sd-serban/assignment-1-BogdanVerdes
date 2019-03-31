@@ -2,6 +2,7 @@ package ro.utcn.sd.vba.a1.seed;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import ro.utcn.sd.vba.a1.model.*;
 import ro.utcn.sd.vba.a1.repository.api.RepositoryFactory;
@@ -12,6 +13,7 @@ import java.text.SimpleDateFormat;
 
 @Component
 @RequiredArgsConstructor
+@Order(-1)
 public class Seed implements CommandLineRunner{
     private final RepositoryFactory repositoryFactory;
 

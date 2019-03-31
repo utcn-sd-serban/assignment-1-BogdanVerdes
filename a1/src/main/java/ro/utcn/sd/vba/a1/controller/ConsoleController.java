@@ -2,6 +2,7 @@ package ro.utcn.sd.vba.a1.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import ro.utcn.sd.vba.a1.model.*;
 import ro.utcn.sd.vba.a1.service.*;
@@ -14,6 +15,7 @@ import java.util.Scanner;
 
 @Component
 @RequiredArgsConstructor
+@Order(0)
 public class ConsoleController implements CommandLineRunner{
     private final Scanner scanner = new Scanner(System.in).useDelimiter("\n");
     private final AnswerService answerService;
