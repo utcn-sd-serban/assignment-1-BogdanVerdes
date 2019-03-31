@@ -22,11 +22,13 @@ public class Question {
     private String body;
     private Date creation;
     private String username;
+    private int score;
 
     public Question(String title, String body, String user){
         this.title = title;
         this.body = body;
         this.username = user;
         this.creation = new Date(System.currentTimeMillis());
+        this.score = 0;
     }
 }

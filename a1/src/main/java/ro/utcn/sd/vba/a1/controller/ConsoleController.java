@@ -23,6 +23,8 @@ public class ConsoleController implements CommandLineRunner{
     private final UserService userService;
     private final TagService tagService;
     private final QuestionTagService questionTagService;
+    private final VoteQuestionService voteQuestionService;
+    private final VoteAnswerService voteAnswerService;
     private boolean usingApp = true;
     private User currentUser;
     private boolean logged = false;
@@ -71,6 +73,12 @@ public class ConsoleController implements CommandLineRunner{
             case "delete answer":
                 handleDeleteAnswer();
                 break;
+            case "vote question":
+                handleVoteQuestion();
+                break;
+            case "vote answer":
+                handleVoteAnswer();
+                break;
             case "show tags":
                 handleTags();
                 break;
@@ -91,6 +99,7 @@ public class ConsoleController implements CommandLineRunner{
         print("List of commands: ");
         print("For questions: show questions, ask question, search by title, search by tag");
         print("For answers: show answers, answer question, edit answer, delete answer");
+        print("For voting: vote question, vote answer");
         print("General commands: show tags, logout, help, exit");
     }
 
@@ -171,6 +180,42 @@ public class ConsoleController implements CommandLineRunner{
         int aId = Integer.parseInt(id);
         Optional<Answer> answer = answerService.deleteAnswer(aId,currentUser.getUsername());
         print("Your answer was deleted");
+    }
+
+    private void handleVoteQuestion() throws SQLException {
+        print("Id of question: ");
+        String id = scanner.next().trim();
+        int qId = Integer.parseInt(id);
+        print("Vote up or down? Type retract to retract vote");
+        String vote = scanner.next().trim();
+        if(vote.equals("up")){
+            voteQuestionService.voteQuestion(qId,currentUser.getUsername(),true);
+        }
+        if(vote.equals("down")){
+            voteQuestionService.voteQuestion(qId,currentUser.getUsername(),false);
+        }
+        if(vote.equals("retract")){
+            voteQuestionService.removeVote(qId,currentUser.getUsername());
+        }
+        else print("That is not a valid vote type");
+    }
+
+    private void handleVoteAnswer() throws SQLException {
+        print("Id of answer: ");
+        String idAnswer = scanner.next().trim();
+        int aId = Integer.parseInt(idAnswer);
+        print("Vote up or down? Type retract to retract vote");
+        String vote = scanner.next().trim();
+        if(vote.equals("up")){
+            voteAnswerService.voteAnswer(aId,currentUser.getUsername(),true);
+        }
+        if(vote.equals("down")){
+            voteAnswerService.voteAnswer(aId,currentUser.getUsername(),false);
+        }
+        if(vote.equals("retract")){
+            voteAnswerService.removeVote(aId,currentUser.getUsername());
+        }
+        else print("That is not a valid vote type");
     }
 
     private void handleLogIn() throws SQLException {

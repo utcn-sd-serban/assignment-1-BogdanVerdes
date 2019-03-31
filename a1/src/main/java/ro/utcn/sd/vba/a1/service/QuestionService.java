@@ -26,6 +26,8 @@ public class QuestionService {
         Optional<Question> questionOptional = repositoryFactory.createQuestionRepository().findById(id);
         if(questionOptional.isPresent()){
             Question question = questionOptional.get();
+            int score = repositoryFactory.createVoteQuestionRepository().voteCount(question);
+            question.setScore(score);
             return repositoryFactory.createQuestionRepository().save(question);
         }
         else return new Question();
@@ -34,6 +36,10 @@ public class QuestionService {
     @Transactional
     public List<Question> findAllQuestions(){
         List<Question> questions = repositoryFactory.createQuestionRepository().findAll();
+        for(Question q : questions){
+            int score = repositoryFactory.createVoteQuestionRepository().voteCount(q);
+            q.setScore(score);
+        }
         questions.sort((c1,c2) -> -c1.getCreation().compareTo(c2.getCreation()));
         return questions;
     }
@@ -43,6 +49,8 @@ public class QuestionService {
         List<Question> questions = repositoryFactory.createQuestionRepository().findAll();
         List<Question> result = new ArrayList<>();
         for(Question q: questions){
+            int score = repositoryFactory.createVoteQuestionRepository().voteCount(q);
+            q.setScore(score);
             if(q.getTitle().equals(title)){
                 result.add(q);
             }

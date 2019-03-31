@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 import ro.utcn.sd.vba.a1.repository.api.*;
-import ro.utcn.sd.vba.a1.repository.memory.*;
 
 @Component
 @RequiredArgsConstructor

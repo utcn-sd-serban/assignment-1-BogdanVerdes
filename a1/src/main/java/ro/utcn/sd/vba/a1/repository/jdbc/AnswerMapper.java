@@ -13,6 +13,7 @@ public class AnswerMapper implements RowMapper<Answer> {
                 rs.getString("Text"),
                 rs.getDate("Creation"),
                 rs.getInt("idQuestion"),
-                rs.getString("Author"));
+                rs.getString("Author"),
+                rs.getInt("Score"));
     }
 }

@@ -11,6 +11,7 @@ import ro.utcn.sd.vba.a1.repository.api.VoteQuestionRepository;
 import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Component
@@ -27,6 +28,11 @@ public class JdbcVoteQuestionRepository implements VoteQuestionRepository{
             voteQuestion.setId(id);
         }
         return voteQuestion;
+    }
+
+    @Override
+    public List<VoteQuestion> findAll() {
+        return template.query("SELECT * FROM VoteQuestion",new VoteQuestionMapper());
     }
 
     @Override

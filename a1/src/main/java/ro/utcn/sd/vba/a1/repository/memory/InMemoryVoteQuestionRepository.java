@@ -5,7 +5,9 @@ import ro.utcn.sd.vba.a1.model.Question;
 import ro.utcn.sd.vba.a1.model.VoteQuestion;
 import ro.utcn.sd.vba.a1.repository.api.VoteQuestionRepository;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Component
@@ -22,6 +24,11 @@ public class InMemoryVoteQuestionRepository implements VoteQuestionRepository {
             data.put(voteQuestion.getId(),voteQuestion);
         }
         return voteQuestion;
+    }
+
+    @Override
+    public List<VoteQuestion> findAll() {
+        return new ArrayList<>(data.values());
     }
 
     @Override

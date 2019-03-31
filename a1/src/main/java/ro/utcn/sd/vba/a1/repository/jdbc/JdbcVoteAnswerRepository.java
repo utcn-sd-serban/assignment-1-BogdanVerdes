@@ -11,6 +11,7 @@ import ro.utcn.sd.vba.a1.repository.api.VoteAnswerRepository;
 import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Component
@@ -32,6 +33,11 @@ public class JdbcVoteAnswerRepository implements VoteAnswerRepository{
     @Override
     public void remove(VoteAnswer voteAnswer) throws SQLException {
         template.update("DELETE FROM VoteAnswer WHERE idVoteAnswer = ?",voteAnswer.getId());
+    }
+
+    @Override
+    public List<VoteAnswer> findAll() {
+        return template.query("SELECT * FROM VoteAnswer",new VoteAnswerMapper());
     }
 
     @Override

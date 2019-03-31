@@ -22,12 +22,14 @@ public class Answer{
     private Date creation;
     private int idq;
     private String author;
+    private Integer score;
 
     public Answer(String text,String author,int idq){
         this.author = author;
         this.text = text;
         this.idq = idq;
         this.creation = new Date(System.currentTimeMillis());
+        this.score = 0;
     }
 
 }

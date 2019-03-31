@@ -5,7 +5,9 @@ import ro.utcn.sd.vba.a1.model.Answer;
 import ro.utcn.sd.vba.a1.model.VoteAnswer;
 import ro.utcn.sd.vba.a1.repository.api.VoteAnswerRepository;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Component
@@ -27,6 +29,11 @@ public class InMemoryVoteAnswerRepository implements VoteAnswerRepository{
     @Override
     public synchronized void remove(VoteAnswer voteAnswer) {
         data.remove(voteAnswer.getId());
+    }
+
+    @Override
+    public List<VoteAnswer> findAll() {
+        return new ArrayList<>(data.values());
     }
 
     @Override

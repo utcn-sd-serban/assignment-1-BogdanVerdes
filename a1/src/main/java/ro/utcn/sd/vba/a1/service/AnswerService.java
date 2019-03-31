@@ -19,7 +19,11 @@ public class AnswerService {
     @Transactional
     public List<Answer> findAnswersByQuestion(Question question){
         List<Answer> answers = repositoryFactory.createAnswerRepository().findAllFromQuestion(question);
-        answers.sort((a1,a2) -> -a1.getCreation().compareTo(a2.getCreation()));
+        for(Answer a : answers){
+            int score = repositoryFactory.createVoteAnswerRepository().voteCount(a);
+            a.setScore(score);
+        }
+        answers.sort((a1,a2)-> -a1.getScore().compareTo(a2.getScore()));
         return answers;
     }
 
@@ -49,4 +53,5 @@ public class AnswerService {
         }
         return answerOptional;
     }
+
 }

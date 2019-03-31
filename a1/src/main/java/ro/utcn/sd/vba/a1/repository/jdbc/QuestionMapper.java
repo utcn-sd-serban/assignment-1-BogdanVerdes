@@ -13,6 +13,7 @@ public class QuestionMapper implements RowMapper<Question> {
                 rs.getString("Title"),
                 rs.getString("Content"),
                 rs.getDate("Creation"),
-                rs.getString("Author"));
+                rs.getString("Author"),
+                rs.getInt("Score"));
     }
 }

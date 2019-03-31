@@ -13,6 +13,7 @@ CREATE  TABLE IF NOT EXISTS `sover`.`Question` (
   `Content` VARCHAR(45) NOT NULL ,
   `Creation` DATETIME NOT NULL ,
   `Author` VARCHAR(45) NOT NULL ,
+  `Score` INT NULL ,
   PRIMARY KEY (`idQuestion`, `Author`) ,
   INDEX `fk_Question_User1_idx` (`Author` ASC) ,
   CONSTRAINT `fk_Question_User1`
@@ -28,6 +29,7 @@ CREATE  TABLE IF NOT EXISTS `sover`.`Answer` (
   `Creation` DATETIME NOT NULL ,
   `idQuestion` INT NOT NULL ,
   `Author` VARCHAR(45) NOT NULL ,
+  `Score` INTEGER NULL ,
   PRIMARY KEY (`idAnswer`, `idQuestion`, `Author`) ,
   INDEX `fk_Answer_Question_idx` (`idQuestion` ASC) ,
   INDEX `fk_Answer_User1_idx` (`Author` ASC) ,
