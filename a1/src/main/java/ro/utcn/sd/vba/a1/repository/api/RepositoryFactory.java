@@ -6,4 +6,6 @@ public interface RepositoryFactory {
     UserRepository createUserRepository();
     TagRepository createTagRepository();
     QuestionTagRepository createQuestionTagRepository();
+    VoteAnswerRepository createVoteAnswerRepository();
+    VoteQuestionRepository createVoteQuestionRepository();
 }

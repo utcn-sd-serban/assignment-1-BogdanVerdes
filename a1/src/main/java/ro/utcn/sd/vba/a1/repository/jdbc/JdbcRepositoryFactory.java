@@ -10,11 +10,13 @@ import ro.utcn.sd.vba.a1.repository.memory.*;
 @RequiredArgsConstructor
 @ConditionalOnProperty (name = "a1.repository-type",havingValue = "JDBC")
 public class JdbcRepositoryFactory implements RepositoryFactory{
-    private final InMemoryQuestionRepository questionRepository = new InMemoryQuestionRepository();
-    private final InMemoryAnswerRepository answerRepository = new InMemoryAnswerRepository();
-    private final InMemoryUserRepository userRepository = new InMemoryUserRepository();
-    private final InMemoryTagRepository tagRepository = new InMemoryTagRepository();
-    private final InMemoryQuestionTagRepository questionTagRepository = new InMemoryQuestionTagRepository();
+    private final JdbcQuestionRepository questionRepository;
+    private final JdbcAnswerRepository answerRepository;
+    private final JdbcUserRepository userRepository;
+    private final JdbcTagRepository tagRepository;
+    private final JdbcQuestionTagRepository questionTagRepository;
+    private final JdbcVoteAnswerRepository voteAnswerRepository;
+    private final JdbcVoteQuestionRepository voteQuestionRepository;
 
     @Override
     public QuestionRepository createQuestionRepository() {
@@ -39,6 +41,16 @@ public class JdbcRepositoryFactory implements RepositoryFactory{
     @Override
     public QuestionTagRepository createQuestionTagRepository() {
         return questionTagRepository;
+    }
+
+    @Override
+    public VoteAnswerRepository createVoteAnswerRepository() {
+        return voteAnswerRepository;
+    }
+
+    @Override
+    public VoteQuestionRepository createVoteQuestionRepository() {
+        return voteQuestionRepository;
     }
 
 }
