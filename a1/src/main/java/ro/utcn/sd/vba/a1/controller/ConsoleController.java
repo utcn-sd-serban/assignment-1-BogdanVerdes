@@ -15,7 +15,7 @@ import java.util.Scanner;
 @Component
 @RequiredArgsConstructor
 public class ConsoleController implements CommandLineRunner{
-    private final Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in).useDelimiter("\n");
     private final AnswerService answerService;
     private final QuestionService questionService;
     private final UserService userService;
@@ -69,6 +69,9 @@ public class ConsoleController implements CommandLineRunner{
             case "delete answer":
                 handleDeleteAnswer();
                 break;
+            case "show tags":
+                handleTags();
+                break;
             case "logout":
                 logged = false;
                 while(!logged) {
@@ -86,7 +89,7 @@ public class ConsoleController implements CommandLineRunner{
         print("List of commands: ");
         print("For questions: show questions, ask question, search by title, search by tag");
         print("For answers: show answers, answer question, edit answer, delete answer");
-        print("General commands: logout, help, exit");
+        print("General commands: show tags, logout, help, exit");
     }
 
     private void handleShowQuestions(){
@@ -103,6 +106,10 @@ public class ConsoleController implements CommandLineRunner{
                 "\nIf a tag does not exist it will be created");
         String[] tags = scanner.next().trim().split(" ");
         for(String t:tags){
+            if(tagService.findAllTags().isEmpty()){
+                tagService.addTag(new Tag(t));
+                questionTagService.saveQuestionTag(new QuestionTag(t,questionNew.getId()));
+            }
             for(Tag tag:tagService.findAllTags()){
                 if(t.equals(tag.getName())){
                     questionTagService.saveQuestionTag(new QuestionTag(t,questionNew.getId()));
@@ -125,7 +132,7 @@ public class ConsoleController implements CommandLineRunner{
     private void handleSearchQuestionByTag(){
         print("Enter tag: ");
         String tag = scanner.next().trim();
-        questionTagService.findQuestionsByTag(new Tag(tag));
+        questionTagService.findQuestionsByTag(new Tag(tag)).forEach(System.out::println);
     }
 
     private void handleShowAnswers() throws SQLException {
@@ -194,6 +201,10 @@ public class ConsoleController implements CommandLineRunner{
             }
         }
         else print("Invalid command");
+    }
+
+    private void handleTags(){
+        tagService.findAllTags().forEach(System.out::println);
     }
 
     private void print(String value){

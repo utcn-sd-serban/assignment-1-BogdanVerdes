@@ -17,7 +17,6 @@ public class InMemoryTagRepository implements TagRepository{
         if(!tag.getName().equals("")){
             tags.put(tag.getName(),tag);
         }
-
         return tag;
     }
 
